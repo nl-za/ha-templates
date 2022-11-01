@@ -40,3 +40,18 @@ event_type: telegram_command
 event_data:
   command: /turnofflivingroom
 ```
+
+#### Greeting
+
+```
+{% set time = now().hour %}
+{% if (time >= 18) %}
+  Good Evening, {{user}}!
+{% elif (time >= 12) %}
+  Good Afternoon, {{user}}!
+{% elif (time >= 5) %}
+  Good Morning, {{user}}!
+{% else %}
+  Hello, {{user}}!
+{% endif %}
+```
