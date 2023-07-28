@@ -55,3 +55,12 @@ event_data:
   Hello, {{user}}!
 {% endif %}
 ```
+
+#### Next alarm
+
+```
+{{now().strftime('%a %h %d %H:%M %Z %Y') == (((state_attr('sensor.pixel_6_next_alarm', 'Time in Milliseconds') | int / 1000) ) | timestamp_custom('%a %h %d %H:%M %Z %Y'))}}
+
+
+{{(state_attr('sensor.pixel_6_next_alarm', 'Time in Milliseconds') | int / 1000) | timestamp_custom('%a %h %d %H:%M %Z %Y')}}
+```
