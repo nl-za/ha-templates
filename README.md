@@ -64,3 +64,14 @@ event_data:
 
 {{(state_attr('sensor.pixel_6_next_alarm', 'Time in Milliseconds') | int / 1000) | timestamp_custom('%a %h %d %H:%M %Z %Y')}}
 ```
+
+#### Loadshedding warning
+
+```
+{%- for attr in states.sensor.load_shedding_area_capetown_7_seapoint.attributes.forecast -%}
+  {% set ls_start = attr.start_time.astimezone() %}
+  {% set ls_end = attr.end_time.astimezone() %}
+  {% set next_alarm = ((((state_attr('sensor.pixel_6_next_alarm', 'Time in Milliseconds') | int(0) / 1000)) | as_datetime)).astimezone() %}
+  {% if ls_start <= next_alarm <= ls_end %} True {% break %} {% endif %}
+{% endfor %}
+```
