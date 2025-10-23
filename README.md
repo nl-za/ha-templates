@@ -77,6 +77,7 @@ event_data:
 ```
 
 #### Lights on count v2
+```
 {% set AREAS = ['kitchen','office','bedroom','living room'] %}
 {% set DOMAIN = 'light' %}
 
@@ -89,3 +90,4 @@ event_data:
    | selectattr('state','equalto','on')
    | rejectattr('entity_id', 'is_hidden_entity')
    | list | count }}
+```
