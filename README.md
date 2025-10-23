@@ -75,3 +75,17 @@ event_data:
   {% if ls_start <= next_alarm <= ls_end %} True {% break %} {% endif %}
 {% endfor %}
 ```
+
+#### Lights on count v2
+{% set AREAS = ['kitchen','office','bedroom','living room'] %}
+{% set DOMAIN = 'light' %}
+
+{% set ns = namespace(ids=[]) %}
+{% for a in AREAS %}
+  {% set ns.ids = ns.ids + area_entities(a) %}
+{% endfor %}
+{{ expand(ns.ids|unique)
+   | selectattr('domain','equalto', DOMAIN)
+   | selectattr('state','equalto','on')
+   | rejectattr('entity_id', 'is_hidden_entity')
+   | list | count }}
